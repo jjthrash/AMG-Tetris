@@ -52,6 +52,10 @@ int RightState = 0;         // variable for reading the right pushbutton status
 int DownState = 0;         // variable for reading the down pushbutton status
 int score = 0;
 
+//
+// PLATFORM SPECIFIC
+//
+
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(200, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
@@ -62,6 +66,43 @@ void setup() {
   pinMode(Left, INPUT);
   pinMode(Right, INPUT);
 }
+void setCartesianPixelColor(int x, int y, int r, int b, int g) {
+  // The IF statement takes all even rows and reverses them. This accounts for all odd rows linking from left to right and all even rows connecting from right to left.
+  if (x % 2) {
+    strip.setPixelColor((x*matrixy)+y, r, g, b);
+  }
+  else {
+    strip.setPixelColor((x*matrixy)+(matrixy-y-1), r, g, b);
+  }
+}
+
+void setLinearPixelColor(int i, int r, int g, int b) {
+  strip.setPixelColor(i, r, g, b);
+}
+
+void updateDisplay() {
+  strip.show();
+}
+
+int readRight() {
+  return digitalRead(Right);
+}
+
+int readLeft() {
+  return digitalRead(Left);
+}
+
+int readUp() {
+  return digitalRead(UP);
+}
+
+int readDown() {
+  return digitalRead(DOWN);
+}
+
+//
+// END PLATFORM SPECIFIC
+//
 
 void loop(){
   if(fallcount == fallspeed){
@@ -70,10 +111,10 @@ void loop(){
   }
 
   // read and store the state of the pushbutton value:
-  RotateState = digitalRead(UP);
-  LeftState = digitalRead(Left);
-  RightState = digitalRead(Right);
-  DownState = digitalRead(DOWN);
+  RotateState = readUp();
+  LeftState   = readLeft();
+  RightState  = readRight();
+  DownState   = readDown();
 
   // Direct to udf with intended action if button was recorded as active.
   if(RotateState == 1 and debounce == 0){
@@ -242,24 +283,6 @@ void add(int b){
   pos[1] = 5;
 }
 
-void setCartesianPixelColor(int x, int y, int r, int g, int b) {
-  // The IF statement takes all even rows and reverses them. This accounts for all odd rows linking from left to right and all even rows connecting from right to left.
-  if (x % 2) {
-    strip.setPixelColor((x*matrixy)+y, r, g, b);
-  }
-  else {
-    strip.setPixelColor((x*matrixy)+(matrixy-y-1), r, g, b);
-  }
-}
-
-void setLinearPixelColor(int i, int r, int g, int b) {
-  strip.setPixelColor(i, r, g, b);
-}
-
-void updateDisplay() {
-  strip.show();
-}
-
 void clearBoard() {
   for(int i = 0; i < strip.numPixels(); i++){
     setLinearPixelColor(i, 0, 0, 0);
@@ -305,10 +328,10 @@ void showScore(){
 
   // read and store the state of the pushbutton value:
   for(int i = 0; i < 3; i++){
-    RotateState = digitalRead(UP);
-    LeftState = digitalRead(Left);
-    RightState = digitalRead(Right);
-    DownState = digitalRead(DOWN);
+    RotateState = readUp();
+    LeftState   = readLeft();
+    RightState  = readRight();
+    DownState   = readDown();
 
     // Direct to udf with intended action if button was recorded as active.
     if(RotateState == 1 or RightState == 1 or LeftState == 1 or DownState == 1){
