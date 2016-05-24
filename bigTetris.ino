@@ -242,57 +242,68 @@ void add(int b){
   pos[1] = 5;
 }
 
+void setCartesianPixelColor(int x, int y, int r, int g, int b) {
+  // The IF statement takes all even rows and reverses them. This accounts for all odd rows linking from left to right and all even rows connecting from right to left.
+  if (x % 2) {
+    strip.setPixelColor((x*matrixy)+y, r, g, b);
+  }
+  else {
+    strip.setPixelColor((x*matrixy)+(matrixy-y-1), r, g, b);
+  }
+}
+
+void setLinearPixelColor(int i, int r, int g, int b) {
+  strip.setPixelColor(i, r, g, b);
+}
+
+void updateDisplay() {
+  strip.show();
+}
+
+void clearBoard() {
+  for(int i = 0; i < strip.numPixels(); i++){
+    setLinearPixelColor(i, 0, 0, 0);
+  }
+}
+
+
 //Displays the screen by converting the matrix (gameboard) into a continuous LED strip.
 void show(){
-  for(int i = 0; i < strip.numPixels(); i++){
-    strip.setPixelColor(i, 0, 0, 0);
-//    strip.setPixelColor(i, 0, 0, 255);
-//    delay(100);
-//    strip.show();
-  }
-  
+  clearBoard();
+
+  // displays old pieces?
   for(int x = 0; x < matrixx; x++){
     for(int y = 0; y < matrixy; y ++){
-      if(matrix[x][y] != 0){
-// The IF statement takes all even rows and reverses them. This accounts for all odd rows linking from left to right and all even rows connecting from right to left. 
-        if(x%2 == 1){
-           strip.setPixelColor((x*matrixy)+y, colors[matrix[x][y]-1][0], colors[matrix[x][y]-1][1], colors[matrix[x][y]-1][2]);
-         }
-         else{
-         strip.setPixelColor((x*matrixy)+(matrixy-y-1), colors[matrix[x][y]-1][0], colors[matrix[x][y]-1][1], colors[matrix[x][y]-1][2]);
-        }
+      if(matrix[x][y] != 0) {
+        setCartesianPixelColor(x, y, colors[matrix[x][y]-1][0], colors[matrix[x][y]-1][1], colors[matrix[x][y]-1][2]);
       }
     }
   }
+
+  // displays current falling piece? This seems redundant, since I *think* matrix has the piece already
   for(int e = 0; e < 4; e++){
     truepos[0] = current[e][0]+pos[0];
     truepos[1] = current[e][1]+pos[1];
-    if(truepos[0]%2 == 1){
-      strip.setPixelColor((truepos[0]*matrixy)+truepos[1], colors[currentnum][0], colors[currentnum][1], colors[currentnum][2]);
-    }
-    else{
-      strip.setPixelColor((truepos[0]*matrixy)+(matrixy-truepos[1]-1), colors[currentnum][0], colors[currentnum][1], colors[currentnum][2]);
-    }
+    setCartesianPixelColor(truepos[1], truepos[0], colors[currentnum][0], colors[currentnum][1], colors[currentnum][2]);
   }
-  strip.show();
+  updateDisplay();
 }
 
 
 void showScore(){
-  for(int i = 0; i < strip.numPixels(); i++){
-    strip.setPixelColor(i, 0, 0, 0);
+  clearBoard();
+
+  if(score == 0){
+    setLinearPixelColor(0, 255, 0, 0);
   }
-   if(score == 0){
-          strip.setPixelColor(0, 255, 0, 0);
-      }  
-   for(int i = 0; i < score; i++){
-      strip.setPixelColor(i, 255, 255, 255);
+  for(int i = 0; i < score; i++){
+    setLinearPixelColor(i, 255, 255, 255);
   }
-   strip.show(); 
-   score = 0;
-   delay(1000); 
- 
-    // read and store the state of the pushbutton value:
+  updateDisplay();
+  score = 0;
+  delay(1000);
+
+  // read and store the state of the pushbutton value:
   for(int i = 0; i < 3; i++){
     RotateState = digitalRead(UP);
     LeftState = digitalRead(Left);
