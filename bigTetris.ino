@@ -1,4 +1,4 @@
-/*  
+/*
 Copyright 2014 Joel Lienhard  (joel@mclien.de  joel@sisam42.de)
 
 Modified by the Alamance Makers Guild 5/6/2016 (Jeff Wright, Schae Stewart, Danny Oakley)
@@ -74,7 +74,7 @@ void loop(){
   LeftState = digitalRead(Left);
   RightState = digitalRead(Right);
   DownState = digitalRead(DOWN);
-  
+
   // Direct to udf with intended action if button was recorded as active.
   if(RotateState == 1 and debounce == 0){
     debounce = debouncevalue * 1.5;
@@ -123,16 +123,16 @@ void checkend(){
     }
     add(random(7));
     for(int x = 0; x < matrixx; x++){
-      for(int y = 0; y< matrixy; y++){ 
+      for(int y = 0; y< matrixy; y++){
         matrix[x][y] = 0;
 
       }
     }
   }
 }
-// Checks to see if the game piece has room to fall, if not checks all rows to see if a full row has been made. If so, removes the row and increases the speed by reducing the time between falling to 80% of the previous value    
+// Checks to see if the game piece has room to fall, if not checks all rows to see if a full row has been made. If so, removes the row and increases the speed by reducing the time between falling to 80% of the previous value
 void checkrows(){
-  for(int x = 0; x < matrixx; x++){ 
+  for(int x = 0; x < matrixx; x++){
     fullrow = 1;
     for(int y = 0; y < matrixy; y++){
       if(matrix[x][y] == 0){
@@ -146,19 +146,19 @@ void checkrows(){
         for(int y = 0; y < matrixy; y++){
           matrix[row][y] = matrix[row-1][y];
         }
-      }    
+      }
       //Speed up the game every 2 points
       if(score%2 == 1 and fallspeed * 0.9 > 1){
         fallspeed = fallspeed * 0.9;
       }
       if(fallspeed * 0.9 < 1 and fallspeed -1 > 0){
         fallspeed = fallspeed -1;
-      }      
+      }
     }
   }
 }
 
-void left(){  
+void left(){
   moveable = 1;
   for(int e = 0; e < 4; e++){
     if(matrix[current[e][0]+pos[0]][current[e][1]+pos[1]+1] != 0){
@@ -180,7 +180,7 @@ void right()  {
       moveable = 0;
     }
 //    if(current[e][0]+pos[0]-1 == 0){
-    if(current[e][1]+pos[1] == 0){      
+    if(current[e][1]+pos[1] == 0){
       moveable = 0;
     }
   }
@@ -189,7 +189,7 @@ void right()  {
   }
 }
 
-void down(){  
+void down(){
   moveable = 1;
   for(int e = 0; e < 4; e++){
     if(matrix[current[e][0]+pos[0]+1][current[e][1]+pos[1]] != 0){
@@ -222,7 +222,7 @@ void rotate(){
       moveable = 0;
     }
   }
-  
+
   if(moveable == 0){
     for(int e = 0; e < 4; e++){
       current[e][0] = currentcach[e][0];
@@ -298,7 +298,7 @@ void showScore(){
     LeftState = digitalRead(Left);
     RightState = digitalRead(Right);
     DownState = digitalRead(DOWN);
-  
+
     // Direct to udf with intended action if button was recorded as active.
     if(RotateState == 1 or RightState == 1 or LeftState == 1 or DownState == 1){
       i = 5;
