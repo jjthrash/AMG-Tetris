@@ -100,6 +100,12 @@ int readDown() {
   return digitalRead(DOWN);
 }
 
+void clearBoard() {
+  for(int i = 0; i < strip.numPixels(); i++){
+    setLinearPixelColor(i, 0, 0, 0);
+  }
+}
+
 //
 // END PLATFORM SPECIFIC
 //
@@ -281,12 +287,6 @@ void add(int b){
   currentnum = b;
   pos[0] = 1;
   pos[1] = 5;
-}
-
-void clearBoard() {
-  for(int i = 0; i < strip.numPixels(); i++){
-    setLinearPixelColor(i, 0, 0, 0);
-  }
 }
 
 

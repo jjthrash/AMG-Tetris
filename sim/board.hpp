@@ -15,6 +15,7 @@ class Board : public Fl_Widget {
     int readUp();
     int readDown();
     void draw();
+    void clearBoard();
 
   private:
     //place to store stuff

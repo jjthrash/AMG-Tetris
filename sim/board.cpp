@@ -2,6 +2,10 @@
 #include <FL/Fl_draw.H>
 
 Board::Board(int x, int y, int w, int h) : Fl_Widget(x,y,w,h) {
+  clearBoard();
+}
+
+void Board::clearBoard() {
   for (int i = 0; i < BOARD_WIDTH_BLOCKS; i++) {
     for (int j = 0; j < BOARD_HEIGHT_BLOCKS; j++) {
       this->matrix[i][j] = fl_rgb_color(0,0,0);
