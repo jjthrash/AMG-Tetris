@@ -2,6 +2,8 @@
 #include <FL/Fl_Window.H>
 
 #include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "board.hpp"
 
@@ -48,7 +50,7 @@ void delay(long ms) {
 }
 
 long random(long max) {
-  return max;
+  return rand() % max;
 }
 
 //
@@ -334,6 +336,7 @@ void handle_timeout(void *context) {
 }
 
 int main(int argc, char **argv) {
+  srand(time(NULL));
   Fl_Window *window = new Fl_Window(440,840);
   board = new Board(20,20,400,800);
   board->updateDisplay();
