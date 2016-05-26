@@ -22,6 +22,6 @@ class Board : public Fl_Widget {
     Fl_Color matrix[BOARD_WIDTH_BLOCKS][BOARD_HEIGHT_BLOCKS];
     int blockX(int i, int j);
     int blockY(int i, int j);
-    int blockW(int i, int j);
-    int blockH(int i, int j);
+    int blockW();
+    int blockH();
 };

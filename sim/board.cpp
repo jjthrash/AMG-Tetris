@@ -24,18 +24,18 @@ void Board::setLinearPixelColor(int i, int r, int g, int b) {
 
 int Board::blockX(int i, int j) {
   //top left + i * blockwidth
-  return this->x() + i * this->blockW(i, j);
+  return this->x() + i * this->blockW();
 }
 
 int Board::blockY(int i, int j) {
-  return this->y() + j * this->blockH(i, j);
+  return this->y() + j * this->blockH();
 }
 
-int Board::blockW(int i, int j) {
+int Board::blockW() {
   return this->w() / BOARD_WIDTH_BLOCKS;
 }
 
-int Board::blockH(int i, int j) {
+int Board::blockH() {
   return this->h() / BOARD_HEIGHT_BLOCKS;
 }
 
@@ -45,8 +45,8 @@ void Board::updateDisplay() {
       fl_color(matrix[i][j]);
       fl_rectf(this->blockX(i,j),
                this->blockY(i,j),
-               this->blockW(i,j),
-               this->blockH(i,j));
+               this->blockW(),
+               this->blockH());
     }
   }
 }
