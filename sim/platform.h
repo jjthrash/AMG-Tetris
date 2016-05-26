@@ -1,0 +1,10 @@
+void setCartesianPixelColor(int x, int y, int r, int b, int g);
+void setLinearPixelColor(int i, int r, int g, int b);
+void updateDisplay();
+int readRight();
+int readLeft();
+int readUp();
+int readDown();
+void clearBoard();
+void delay(long ms);
+long random(long max);
