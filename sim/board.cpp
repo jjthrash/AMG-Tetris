@@ -28,7 +28,7 @@ int Board::blockX(int i, int j) {
 }
 
 int Board::blockY(int i, int j) {
-  return this->y() + j * this->blockH();
+  return this->y() + (BOARD_HEIGHT_BLOCKS - j - 1) * this->blockH();
 }
 
 int Board::blockW() {
