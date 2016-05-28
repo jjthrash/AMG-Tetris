@@ -237,7 +237,7 @@ void rotate(){
 void show(){
   clearBoard();
 
-  // displays old pieces?
+  // displays old pieces
   for(int x = 0; x < matrixx; x++){
     for(int y = 0; y < matrixy; y ++){
       if(matrix[x][y] != 0) {
@@ -247,7 +247,7 @@ void show(){
     }
   }
 
-  // displays current falling piece? This seems redundant, since I *think* matrix has the piece already
+  // displays current falling piece
   for(int e = 0; e < 4; e++){
     truepos[0] = current[e][0]+pos[0];
     truepos[1] = current[e][1]+pos[1];
