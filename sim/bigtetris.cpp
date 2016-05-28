@@ -1,4 +1,5 @@
 #include "platform.h"
+#include <stdio.h>
 
 // big tetris
 #define matrixx 20
@@ -67,6 +68,20 @@ void right()  {
   if(moveable == 1){
     pos[1]--;
   }
+}
+
+void dumpMatrix() {
+  puts("------- Current Board -------");
+  for (int i = 0; i < matrixx; i++) {
+    for (int j = 0; j < matrixy; j++) {
+      if (matrix[i][j] == 0)
+        printf("[ ]");
+      else
+        printf("[%d]", matrix[i][j]);
+    }
+    puts("");
+  }
+  puts("-----------------------------");
 }
 
 void add(int b){
@@ -226,7 +241,8 @@ void show(){
   for(int x = 0; x < matrixx; x++){
     for(int y = 0; y < matrixy; y ++){
       if(matrix[x][y] != 0) {
-        setCartesianPixelColor(x, y, colors[matrix[x][y]-1][0], colors[matrix[x][y]-1][1], colors[matrix[x][y]-1][2]);
+        int *color = (int*)&(colors[matrix[x][y]-1]);
+        setCartesianPixelColor(y, x, color[0], color[1], color[2]);
       }
     }
   }
