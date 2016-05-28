@@ -52,19 +52,19 @@ void Board::updateDisplay() {
 }
 
 int Board::readRight() {
-  return 0;
+  return left_key_down;
 }
 
 int Board::readLeft() {
-  return 0;
+  return right_key_down;
 }
 
 int Board::readUp() {
-  return 0;
+  return up_key_down;
 }
 
 int Board::readDown() {
-  return 0;
+  return down_key_down;
 }
 
 void Board::draw() {
@@ -72,3 +72,57 @@ void Board::draw() {
   fl_rectf(this->x(), this->y(), this->w(), this->h());
 }
 
+int Board::handle(int event) {
+  switch (event) {
+  case FL_FOCUS:
+    return 1;
+  case FL_UNFOCUS:
+    return 1;
+  case FL_KEYDOWN:
+    handle_keydown();
+    break;
+  case FL_KEYUP:
+    handle_keyup();
+    break;
+  }
+
+  return 0;
+}
+
+int Board::handle_keydown() {
+  switch (Fl::event_key()) {
+  case FL_Down:
+    down_key_down = true;
+    return 1;
+  case FL_Up:
+    up_key_down = true;
+    return 1;
+  case FL_Left:
+    left_key_down = true;
+    return 1;
+  case FL_Right:
+    right_key_down = true;
+    return 1;
+  default:
+    return 0;
+  }
+}
+
+int Board::handle_keyup() {
+  switch (Fl::event_key()) {
+  case FL_Down:
+    down_key_down = false;
+    return 1;
+  case FL_Up:
+    up_key_down = false;
+    return 1;
+  case FL_Left:
+    left_key_down = false;
+    return 1;
+  case FL_Right:
+    right_key_down = false;
+    return 1;
+  default:
+    return 0;
+  }
+}

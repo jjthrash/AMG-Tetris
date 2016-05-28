@@ -14,14 +14,21 @@ class Board : public Fl_Widget {
     int readLeft();
     int readUp();
     int readDown();
-    void draw();
     void clearBoard();
+    void draw(); //virtual
+    int handle(int); //virtual
 
   private:
     //place to store stuff
     Fl_Color matrix[BOARD_WIDTH_BLOCKS][BOARD_HEIGHT_BLOCKS];
+    bool down_key_down;
+    bool up_key_down;
+    bool left_key_down;
+    bool right_key_down;
     int blockX(int i, int j);
     int blockY(int i, int j);
     int blockW();
     int blockH();
+    int handle_keydown();
+    int handle_keyup();
 };
