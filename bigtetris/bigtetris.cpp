@@ -120,8 +120,7 @@ void down(){
   }
 }
 
-
-void loop(){
+void gameLoop() {
   if(fallcount == fallspeed){
     fallcount = 0;
     down();
@@ -161,16 +160,25 @@ void loop(){
   show();
 }
 
-// Checks to see if their is room for another game piece then inserts it. If not it shows the score by displaying an LED for each full row in the round.
-void checkend(){
-  gameover = 0;
-  for(int y = 0; y < matrixy; y++){
-    if(matrix[1][y] != 0){
-      gameover = 1;
-    }
+void showScoreLoop() {
+  showScore();
+
+  bool restartGame = false;
+
+  // read and store the state of the pushbutton value:
+  RotateState = readUp();
+  LeftState   = readLeft();
+  RightState  = readRight();
+  DownState   = readDown();
+
+  // Direct to udf with intended action if button was recorded as active.
+  if(RotateState == 1 or RightState == 1 or LeftState == 1 or DownState == 1){
+    restartGame = true;
   }
-  if(gameover == 1){
-    showScore();
+
+  if (restartGame) {
+    gameover = 0;
+    score = 0;
     fallspeed = fallspeedorg;
     pos[0] = 0;
     pos[1] = 5;
@@ -183,8 +191,28 @@ void checkend(){
     for(int x = 0; x < matrixx; x++){
       for(int y = 0; y< matrixy; y++){
         matrix[x][y] = 0;
-
       }
+    }
+  }
+}
+
+void loop(){
+  switch (gameover) {
+  case 0:
+    gameLoop();
+    break;
+  case 1:
+    showScoreLoop();
+    break;
+  }
+}
+
+// Checks to see if their is room for another game piece then inserts it. If not it shows the score by displaying an LED for each full row in the round.
+void checkend(){
+  gameover = 0;
+  for(int y = 0; y < matrixy; y++){
+    if(matrix[1][y] != 0){
+      gameover = 1;
     }
   }
 }
@@ -274,23 +302,5 @@ void showScore(){
     setLinearPixelColor(i, 255, 255, 255);
   }
   updateDisplay();
-  score = 0;
-  delay(1000);
-
-  // read and store the state of the pushbutton value:
-  for(int i = 0; i < 3; i++){
-    RotateState = readUp();
-    LeftState   = readLeft();
-    RightState  = readRight();
-    DownState   = readDown();
-
-    // Direct to udf with intended action if button was recorded as active.
-    if(RotateState == 1 or RightState == 1 or LeftState == 1 or DownState == 1){
-      i = 5;
-    }
-    else{
-      i = 0;
-    }
-  }
 }
 // end big tetris
