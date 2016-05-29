@@ -1,3 +1,6 @@
+#ifndef __BOARD_HPP__
+#define __BOARD_HPP__
+
 #include <FL/Fl.H>
 #include <FL/Fl_Widget.H>
 
@@ -32,3 +35,5 @@ class Board : public Fl_Widget {
     int handle_keydown();
     int handle_keyup();
 };
+
+#endif
