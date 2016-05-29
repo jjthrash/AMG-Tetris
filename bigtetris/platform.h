@@ -6,5 +6,3 @@ int readLeft();
 int readUp();
 int readDown();
 void clearBoard();
-void delay(long ms);
-long random(long max);

@@ -1,4 +1,11 @@
+#ifdef ARDUINO
+#include "Arduino.h"
+#else
+#include "fakearduino.h"
+#endif
+
 #include "platform.h"
+
 #include <stdio.h>
 
 // big tetris
