@@ -7,6 +7,8 @@
 
 #include "board.hpp"
 
+#define FLTK_LOOP_TIME 0.01
+
 void loop();
 
 //
@@ -63,7 +65,7 @@ long random(long max) {
 void handle_timeout(void *context) {
 //puts("void handle_timeout(void *context) {");
   loop();
-  Fl::repeat_timeout(0.01, handle_timeout);
+  Fl::repeat_timeout(FLTK_LOOP_TIME, handle_timeout);
 }
 
 int main(int argc, char **argv) {
@@ -73,7 +75,7 @@ int main(int argc, char **argv) {
   board->updateDisplay();
   window->end();
   window->show(argc, argv);
-  Fl::add_timeout(0.01, handle_timeout);
+  Fl::add_timeout(FLTK_LOOP_TIME, handle_timeout);
   return Fl::run();
 }
 
