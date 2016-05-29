@@ -8,4 +8,4 @@ copied_files: ../bigtetris/bigtetris.cpp ../bigtetris/platform.h
 	cp ../bigtetris/bigtetris.cpp ../bigtetris/platform.h .
 
 clean:
-	rm *.o sim bigtetris.cpp platform.h
+	rm -f *.o sim bigtetris.cpp platform.h
