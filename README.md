@@ -28,7 +28,7 @@ make
 ### Linux
 
 ```
-sudo apt-get install lib-fltk #maybe? or yum install, or whatever
+sudo apt-get install lib-fltk-dev #maybe? or yum install, or whatever
 git clone <this repo>
 cd <repo>/sim
 make
@@ -39,3 +39,13 @@ make
 ### Windows
 
 TBD
+
+## Building the Arduino project
+
+- Open `bigtetris/bigtetris.ino` in the Arduino IDE
+- It should just work like normal
+
+## TODO
+
+- Try other projects besides Tetris
+- Set it up for Windows development
