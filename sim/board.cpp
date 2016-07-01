@@ -14,7 +14,9 @@ void Board::clearBoard() {
 }
 
 void Board::setCartesianPixelColor(int x, int y, int r, int g, int b) {
-  this->matrix[x][y] = fl_rgb_color(r, g, b);
+  int xp = 9-y;
+  int yp = x;
+  this->matrix[xp][yp] = fl_rgb_color(r, g, b);
 }
 
 void Board::setLinearPixelColor(int i, int r, int g, int b) {
@@ -52,11 +54,11 @@ void Board::updateDisplay() {
 }
 
 int Board::readRight() {
-  return left_key_down;
+  return right_key_down;
 }
 
 int Board::readLeft() {
-  return right_key_down;
+  return left_key_down;
 }
 
 int Board::readUp() {
