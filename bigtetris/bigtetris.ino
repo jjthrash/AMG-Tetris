@@ -36,6 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(200, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
+  Serial.begin(9600);
+  randomSeed(analogRead(1));
+
   strip.begin();
   strip.show();
   pinMode(UP, INPUT);
