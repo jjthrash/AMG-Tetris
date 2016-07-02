@@ -277,7 +277,7 @@ void show(){
     for(int y = 0; y < matrixy; y ++){
       if(matrix[x][y] != 0) {
         int *color = (int*)&(colors[matrix[x][y]-1]);
-        setCartesianPixelColor(x, y, color[0], color[1], color[2]);
+        setCartesianPixelColor(9-y, x, color[0], color[1], color[2]);
       }
     }
   }
@@ -286,7 +286,7 @@ void show(){
   for(int e = 0; e < 4; e++){
     truepos[0] = current[e][0]+pos[0];
     truepos[1] = current[e][1]+pos[1];
-    setCartesianPixelColor(truepos[0], truepos[1], colors[currentnum][0], colors[currentnum][1], colors[currentnum][2]);
+    setCartesianPixelColor(9-truepos[1], truepos[0], colors[currentnum][0], colors[currentnum][1], colors[currentnum][2]);
   }
   updateDisplay();
 }

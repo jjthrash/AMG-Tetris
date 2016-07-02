@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define Right 11
 #define DOWN 12
 
-#define matrixx 20
-#define matrixy 10
+#define BOARDWIDTH 10
+#define BOARDHEIGHT 20
 
 //
 // PLATFORM SPECIFIC
@@ -45,11 +45,11 @@ void setup() {
 }
 void setCartesianPixelColor(int x, int y, int r, int g, int b) {
   // The IF statement takes all even rows and reverses them. This accounts for all odd rows linking from left to right and all even rows connecting from right to left.
-  if (x % 2) {
-    strip.setPixelColor((x*matrixy)+y, r, g, b);
+  if (y % 2 == 0) {
+    strip.setPixelColor((y*BOARDWIDTH)+x, r, g, b);
   }
   else {
-    strip.setPixelColor((x*matrixy)+(matrixy-y-1), r, g, b);
+    strip.setPixelColor((y*BOARDWIDTH)+(BOARDWIDTH-x-1), r, g, b);
   }
 }
 
