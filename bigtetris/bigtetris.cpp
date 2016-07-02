@@ -6,6 +6,8 @@
 
 #include "platform.h"
 
+#include "image.h"
+
 #include <stdio.h>
 
 // big tetris
@@ -27,12 +29,13 @@ int debounce = 0;
 int moveable = 0;
 int fullrow = 0;
 int rowtodelete = 0;
-int gameover = 0;
+int gameover = 2;
 int RotateState = 0;         // variable for reading the rotate pushbutton status
 int LeftState = 0;         // variable for reading the left pushbutton status
 int RightState = 0;         // variable for reading the right pushbutton status
 int DownState = 0;         // variable for reading the down pushbutton status
 int score = 0;
+int scoreLoopTick = 0;
 
 void left();
 void right();
@@ -45,6 +48,7 @@ void rotate();
 void clearBoard();
 void show();
 void showScore();
+void showLogo();
 
 void left(){
   moveable = 1;
@@ -160,7 +164,33 @@ void gameLoop() {
   show();
 }
 
+void resetGameState() {
+  scoreLoopTick = 0;
+  score = 0;
+  fallspeed = fallspeedorg;
+  pos[0] = 0;
+  pos[1] = 5;
+  for(int x = 0; x < matrixx; x++){
+      for(int y = 0; y< matrixy; y++){
+      matrix[x][y] = 0;
+    }
+  }
+  add(random(7));
+  for(int x = 0; x < matrixx; x++){
+    for(int y = 0; y< matrixy; y++){
+      matrix[x][y] = 0;
+    }
+  }
+}
+
 void showScoreLoop() {
+  scoreLoopTick++;
+
+  if (scoreLoopTick > 5000) {
+    gameover = 2;
+    resetGameState();
+  }
+
   showScore();
 
   bool restartGame = false;
@@ -177,22 +207,8 @@ void showScoreLoop() {
   }
 
   if (restartGame) {
+    resetGameState();
     gameover = 0;
-    score = 0;
-    fallspeed = fallspeedorg;
-    pos[0] = 0;
-    pos[1] = 5;
-    for(int x = 0; x < matrixx; x++){
-        for(int y = 0; y< matrixy; y++){
-        matrix[x][y] = 0;
-      }
-    }
-    add(random(7));
-    for(int x = 0; x < matrixx; x++){
-      for(int y = 0; y< matrixy; y++){
-        matrix[x][y] = 0;
-      }
-    }
   }
 }
 
@@ -203,6 +219,9 @@ void loop(){
     break;
   case 1:
     showScoreLoop();
+    break;
+  case 2:
+    showLogo();
     break;
   }
 }
@@ -291,6 +310,9 @@ void show(){
   updateDisplay();
 }
 
+int anyKeysPressed() {
+  return readUp() + readLeft() + readRight() + readDown();
+}
 
 void showScore(){
   clearBoard();
@@ -303,4 +325,20 @@ void showScore(){
   }
   updateDisplay();
 }
+
+void showLogo() {
+  if (anyKeysPressed() > 0) {
+    gameover = 0;
+  }
+
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 20; j++) {
+      int index = j*STRIDE+i;
+      int* color = (int*)&palette[(int)image[index]];
+      setCartesianPixelColor(i, j, color[0], color[1], color[2]);
+    }
+  }
+  updateDisplay();
+}
+
 // end big tetris

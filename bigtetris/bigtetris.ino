@@ -43,6 +43,7 @@ void setup() {
   pinMode(Left, INPUT);
   pinMode(Right, INPUT);
 }
+
 void setCartesianPixelColor(int x, int y, int r, int g, int b) {
   // The IF statement takes all even rows and reverses them. This accounts for all odd rows linking from left to right and all even rows connecting from right to left.
   if (y % 2 == 0) {
