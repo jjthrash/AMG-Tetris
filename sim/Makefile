@@ -8,4 +8,4 @@ copied_files:
 	cp ../bigtetris/*.cpp ../bigtetris/*.h ../bigtetris/*.c .
 
 clean:
-	rm -f *.o sim bigtetris.cpp platform.h
+	rm -f *.o sim bigtetris.cpp

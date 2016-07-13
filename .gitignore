@@ -2,7 +2,6 @@ sim/sim
 sim/bigtetris.cpp
 sim/platform.h
 sim/image.*
-sim/AMGBigTetris.*
 sim/Adafruit_NeoPixel.h
 
 # Created by https://www.gitignore.io/api/vim,c++
