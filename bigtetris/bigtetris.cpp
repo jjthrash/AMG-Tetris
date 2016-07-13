@@ -24,7 +24,7 @@ int currentcach[4][2] = {0};
 int currentnum = 1;
 int truepos[2] = {0,0};
 int fallspeed = fallspeedorg;
-int fallcount = 1;
+int tick = 1;
 int debounce = 0;
 int moveable = 0;
 int fullrow = 0;
@@ -35,7 +35,6 @@ int LeftState = 0;         // variable for reading the left pushbutton status
 int RightState = 0;         // variable for reading the right pushbutton status
 int DownState = 0;         // variable for reading the down pushbutton status
 int score = 0;
-int scoreLoopTick = 0;
 
 void left();
 void right();
@@ -125,8 +124,8 @@ void down(){
 }
 
 void gameLoop() {
-  if(fallcount == fallspeed){
-    fallcount = 0;
+  if(tick == fallspeed){
+    tick = 0;
     down();
   }
 
@@ -158,14 +157,14 @@ void gameLoop() {
   if(debounce != 0){
     debounce--;
   }
-  fallcount++;
+  tick++;
   checkrows();// Checks to see if rows are full
   checkend();//Checks to see if game is over
   show();
 }
 
 void resetGameState() {
-  scoreLoopTick = 0;
+  tick = 0;
   score = 0;
   fallspeed = fallspeedorg;
   pos[0] = 0;
@@ -184,9 +183,9 @@ void resetGameState() {
 }
 
 void showScoreLoop() {
-  scoreLoopTick++;
+  tick++;
 
-  if (scoreLoopTick > 5000) {
+  if (tick > 5000) {
     gameover = 2;
     resetGameState();
   }
