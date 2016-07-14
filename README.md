@@ -42,7 +42,9 @@ TBD
 
 ## Building the Arduino project
 
+- Make sure the [AMGBigTetris Arduino Library](https://github.com/jjthrash/AMGBigTetris) is installed
 - Open `bigtetris/bigtetris.ino` in the Arduino IDE
+- Select Tools -> Board -> "Arduino/Genuino Mega or Mega 2560"
 - It should just work like normal
 
 ## TODO
