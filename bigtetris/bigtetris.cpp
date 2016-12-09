@@ -6,7 +6,7 @@
 
 #include "AMGBigTetris.h"
 
-#include "image.h"
+#include "logo.h"
 
 #include <stdio.h>
 
@@ -330,6 +330,22 @@ void showLogo() {
     gameover = 0;
   }
 
+  int durationTicks = 90;
+  char *image;
+  if (tick % durationTicks <= durationTicks / 3) {
+    image = logo1;
+  }
+  else if (tick % durationTicks <= 2 * durationTicks / 3) {
+    image = logo2;
+  }
+  else {
+    image = logo3;
+  }
+
+  if (durationTicks == tick) {
+    tick = 0;
+  }
+
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 20; j++) {
       int index = j*STRIDE+i;
@@ -338,6 +354,8 @@ void showLogo() {
     }
   }
   updateDisplay();
+
+  tick++;
 }
 
 // end big tetris
