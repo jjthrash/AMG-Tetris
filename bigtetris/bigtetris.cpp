@@ -330,7 +330,7 @@ void showLogo() {
     gameover = 0;
   }
 
-  int durationTicks = 90;
+  int durationTicks = 3*90;
   char *image;
   if (tick % durationTicks <= durationTicks / 3) {
     image = logo1;
